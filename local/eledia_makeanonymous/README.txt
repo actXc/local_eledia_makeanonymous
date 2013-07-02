@@ -16,7 +16,7 @@ You can also delay the anonymization by setting up a delay time.
 
 Requirements
 ------------
-Moodle 2.4
+Moodle 2.4 or 2.5
 
 
 Installation
@@ -37,6 +37,15 @@ Administration
 --------------
 You can setup the plugin by going to
 Site administration --> Plugins --> Local plugins --> makeanonymous.
+
+
+Version control
+---------------
+- 0.2 (2013070202)
+-- added option to enable/disable the plugin
+
+- 0.1 (2013032800)
+-- first release
 
 
 =================================================================

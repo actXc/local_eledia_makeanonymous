@@ -26,16 +26,25 @@
 function start_anonymous($user) {
     global $DB;
 
-    $sql = ("SELECT value
-             FROM {config_plugins}
-             WHERE plugin='local_eledia_makeanonymous' AND name='delay'");
+    $sql2 = ("SELECT value
+              FROM {config_plugins}
+              WHERE plugin='local_eledia_makeanonymous' AND name='enable'");
 
-    $getconfig = $DB->get_field_sql($sql, $params=null, $strictness=IGNORE_MISSING);
+    $enable = $DB->get_field_sql($sql2, $params=null, $strictness=MUST_EXIST);
+    
+    if ($enable == '1') {
+    
+        $sql = ("SELECT value
+                 FROM {config_plugins}
+                 WHERE plugin='local_eledia_makeanonymous' AND name='delay'");
 
-    if ($getconfig == '0') {
-        make_anonymous($user);
-    } else {
-        store_to_table($user);
+        $getconfig = $DB->get_field_sql($sql, $params=null, $strictness=IGNORE_MISSING);
+
+        if ($getconfig == '0') {
+            make_anonymous($user);
+        } else {
+            store_to_table($user);
+        }
     }
 }
 
@@ -75,28 +84,37 @@ function store_to_table($user) {
 function local_eledia_makeanonymous_cron() {
     global $DB;
 
-    $timenow = time();
+    $sql3 = ("SELECT value
+              FROM {config_plugins}
+              WHERE plugin='local_eledia_makeanonymous' AND name='enable'");
 
-    $sqldelay = ("SELECT value
-                  FROM {config_plugins}
-                  WHERE plugin='local_eledia_makeanonymous' AND name='delaytime'");
+    $enable = $DB->get_field_sql($sql3, $params=null, $strictness=MUST_EXIST);
+    
+    if ($enable == '1') {
 
-    $delay = $DB->get_field_sql($sqldelay, $params=null, $strictness=MUST_EXIST);
-    $delay = $delay*60; // Minutes to seconds.
-    $delaytime = $timenow - $delay;
+        $timenow = time();
 
-    $sqlselect = 'SELECT userid
-                  FROM {local_eledia_makeanonymous}
-                  WHERE timedeleted<'.$delaytime;
+        $sqldelay = ("SELECT value
+                      FROM {config_plugins}
+                      WHERE plugin='local_eledia_makeanonymous' AND name='delaytime'");
 
-    $userids = $DB->get_records_sql($sqlselect);
+        $delay = $DB->get_field_sql($sqldelay, $params=null, $strictness=MUST_EXIST);
+        $delay = $delay*60; // Minutes to seconds.
+        $delaytime = $timenow - $delay;
 
-    foreach ($userids as $userid) {
+        $sqlselect = 'SELECT userid
+                      FROM {local_eledia_makeanonymous}
+                      WHERE timedeleted<'.$delaytime;
 
-        $id = $userid->userid;
-        $user = $DB->get_record('user', array('id'=>$id));
-        make_anonymous($user);
+        $userids = $DB->get_records_sql($sqlselect);
+
+        foreach ($userids as $userid) {
+
+            $id = $userid->userid;
+            $user = $DB->get_record('user', array('id'=>$id));
+            make_anonymous($user);
+        }
+
+        $DB->delete_records_select('local_eledia_makeanonymous', "timedeleted < ?", array($delaytime));
     }
-
-    $DB->delete_records_select('local_eledia_makeanonymous', "timedeleted < ?", array($delaytime));
 }

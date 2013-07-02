@@ -32,6 +32,9 @@ if ($hassiteconfig) {
 
     $settings->add(new admin_setting_heading('local_eledia_makeanonymous_head', '',
                    get_string('makeanonymous_desc', 'local_eledia_makeanonymous')));
+    $settings->add(new admin_setting_configcheckbox('local_eledia_makeanonymous/enable',
+                   get_string('makeanonymous_enable', 'local_eledia_makeanonymous'),
+                   get_string('makeanonymous_enable_desc', 'local_eledia_makeanonymous'), 1));
     $settings->add(new admin_setting_configtext('local_eledia_makeanonymous/deletedcountry',
                    get_string('anonymouscountry', 'local_eledia_makeanonymous'), '', 'DE', PARAM_TEXT, 2));
     $settings->add(new admin_setting_configtext('local_eledia_makeanonymous/deletedcity',
@@ -40,7 +43,6 @@ if ($hassiteconfig) {
                    get_string('anonymousfirstname', 'local_eledia_makeanonymous'), '', 'deleted', PARAM_TEXT, 32));
     $settings->add(new admin_setting_configtext('local_eledia_makeanonymous/deletedsurname',
                    get_string('anonymoussurname', 'local_eledia_makeanonymous'), '', 'User', PARAM_TEXT, 32));
-
     $settings->add(new admin_setting_heading('local_eledia_makeanonymous_delayhead', '',
                    get_string('makeanonymous_delay_desc', 'local_eledia_makeanonymous')));
     $settings->add(new admin_setting_configcheckbox('local_eledia_makeanonymous/delay',

@@ -30,8 +30,9 @@ $string['anonymouscity'] = 'City of anonymous users';
 $string['anonymousfirstname'] = 'First name of anonymous users';
 $string['anonymoussurname'] = 'Surname of anonymous users';
 $string['makeanonymous_desc'] = 'eLeDia makeanonymous plugin to make deleted users anonymous';
-
 $string['makeanonymous_delay_desc'] = 'You can delay the anonymization';
 $string['makeanonymous_delay'] = 'Enable delay';
-$string['makeanonymous_delay_config'] = 'Enable delay to anonymize deleted users after a certain time';
+$string['makeanonymous_delay_config'] = 'Enable delay to anonymize deleted users after a certain time.';
 $string['makeanonymous_delay_time'] = 'Delay time (minutes)';
+$string['makeanonymous_enable'] = 'Enable makeanonymous plugin';
+$string['makeanonymous_enable_desc'] = 'If this option is disabled this plugin will have no effect.';

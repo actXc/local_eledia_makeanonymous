@@ -53,21 +53,48 @@ function make_anonymous($user) {
 
     $newusersettings = $DB->get_records_sql("SELECT name,
                                                     value
-                                            FROM {config_plugins}
-                                            WHERE plugin='local_eledia_makeanonymous'");
+                                             FROM {config_plugins}
+                                             WHERE plugin='local_eledia_makeanonymous'");
 
     $updateuser = $user;
 
     $updateuser->deleted      = 1;
     $updateuser->idnumber     = '';
     $updateuser->picture      = 0;
-    $updateuser->timemodified = time();
     $updateuser->firstname    = $newusersettings['deletedfirstname']->value;
     $updateuser->lastname     = $newusersettings['deletedsurname']->value;
     $updateuser->country      = $newusersettings['deletedcountry']->value;
     $updateuser->city         = $newusersettings['deletedcity']->value;
     $updateuser->username     = 'deletedUser_'.md5($user->username.time());
     $updateuser->email        = $updateuser->username.'@delet.ed';
+    $updateuser->emailstop    = 1;
+    $updateuser->auth         = $newusersettings['deletedauth']->value;
+
+    $updateuser->mnethostid = 0;
+    $updateuser->icq = '';
+    $updateuser->skype = '';
+    $updateuser->yahoo = '';
+    $updateuser->aim = '';
+    $updateuser->msn = '';
+    $updateuser->phone1 = '';
+    $updateuser->phone2 = '';
+    $updateuser->institution = '';
+    $updateuser->department = '';
+    $updateuser->address = '';
+    $updateuser->lang = '';
+    $updateuser->timezone = '';
+    $updateuser->lastip = '0.0.0.0';
+    $updateuser->secret = '';
+    $updateuser->url = '';
+    $updateuser->description = 'deleted by eLeDia makeanonymous plugin';
+    $updateuser->imagealt = '';
+
+    $updateuser->timemodified = '0';
+    $updateuser->firstaccess = '0';
+    $updateuser->lastaccess = '0';
+    $updateuser->lastlogin = '0';
+    $updateuser->currentlogin = '0';
+    $updateuser->timecreated = '0';
 
     $DB->update_record('user', $updateuser);
 }

@@ -25,6 +25,7 @@
 
 $string['pluginname'] = 'makeanonymous';
 
+$string['anonymousauth'] = 'Auth method of anonymous users';
 $string['anonymouscountry'] = 'Country of anonymous users';
 $string['anonymouscity'] = 'City of anonymous users';
 $string['anonymousfirstname'] = 'First name of anonymous users';
@@ -36,3 +37,4 @@ $string['makeanonymous_delay_config'] = 'Enable delay to anonymize deleted users
 $string['makeanonymous_delay_time'] = 'Delay time (minutes)';
 $string['makeanonymous_enable'] = 'Enable makeanonymous plugin';
 $string['makeanonymous_enable_desc'] = 'If this option is disabled this plugin will have no effect.';
+

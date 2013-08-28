@@ -6,7 +6,7 @@ local plugin: eledia_makeanonymous
 Overview
 --------
 After deleting a user his data will become anonymous.
-Firstname, surname, city and country of anonymized users can be set up.
+Firstname, surname, city, country and auth method of anonymized users can be set up.
 Anonymized usernames will be a hash value of old username and deleting time with prefix 'deletedUser_'.
 
 Anonymized e-mail addresses will be the new username with surfix '@delet.ed'.
@@ -41,6 +41,11 @@ Site administration --> Plugins --> Local plugins --> makeanonymous.
 
 Version control
 ---------------
+- 0.3 (2013082800)
+-- set timestamps to 0
+-- added anonymization of remaining database fields
+-- added option to edit auth method of anonymous users
+
 - 0.2 (2013070202)
 -- added option to enable/disable the plugin
 

@@ -12,11 +12,11 @@ Anonymized usernames will be a hash value of old username and deleting time with
 Anonymized e-mail addresses will be the new username with surfix '@delet.ed'.
 
 You can also delay the anonymization by setting up a delay time.
-
+Since version 0.4 you can also anonymize users which you have deleted in the past.
 
 Requirements
 ------------
-Moodle 2.4 or 2.5
+Moodle 2.4, 2.5, 2.6 or 2.7
 
 
 Installation
@@ -41,6 +41,9 @@ Site administration --> Plugins --> Local plugins --> makeanonymous.
 
 Version control
 ---------------
+- 0.4 (2014082802)
+-- you can now anonymize users which you have deleted in the past
+
 - 0.3 (2013082800)
 -- set timestamps to 0
 -- added anonymization of remaining database fields
@@ -53,6 +56,6 @@ Version control
 -- first release
 
 
-=================================================================
-copyright 2013 Matthias Schwabe - eLeDia GmbH <support@eledia.de>
+=========================================================================
+copyright 2013 & 2014  Matthias Schwabe - eLeDia GmbH <support@eledia.de>
 license: http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

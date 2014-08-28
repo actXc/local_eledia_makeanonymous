@@ -1,25 +1,11 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
 /**
- * anonymizes data of deleted users, optinally with a delay time
+ * This local plugin anonymizes data of deleted users, 
+ * optinally with a delay time.
  *
  * @package local_eledia_makeanonymous
  * @author Matthias Schwabe <support@eledia.de>
- * @copyright 2013 eLeDia GmbH
+ * @copyright 2013 & 2014 eLeDia GmbH
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -30,15 +16,15 @@ function start_anonymous($user) {
               FROM {config_plugins}
               WHERE plugin='local_eledia_makeanonymous' AND name='enable'");
 
-    $enable = $DB->get_field_sql($sql2, $params=null, $strictness=MUST_EXIST);
-    
+    $enable = $DB->get_field_sql($sql2, $params = null, $strictness = MUST_EXIST);
+
     if ($enable == '1') {
-    
+
         $sql = ("SELECT value
                  FROM {config_plugins}
                  WHERE plugin='local_eledia_makeanonymous' AND name='delay'");
 
-        $getconfig = $DB->get_field_sql($sql, $params=null, $strictness=IGNORE_MISSING);
+        $getconfig = $DB->get_field_sql($sql, $params = null, $strictness = IGNORE_MISSING);
 
         if ($getconfig == '0') {
             make_anonymous($user);
@@ -86,7 +72,7 @@ function make_anonymous($user) {
     $updateuser->lastip = '0.0.0.0';
     $updateuser->secret = '';
     $updateuser->url = '';
-    $updateuser->description = 'deleted by eLeDia makeanonymous plugin';
+    $updateuser->description = '';
     $updateuser->imagealt = '';
 
     $updateuser->timemodified = '0';
@@ -115,8 +101,8 @@ function local_eledia_makeanonymous_cron() {
               FROM {config_plugins}
               WHERE plugin='local_eledia_makeanonymous' AND name='enable'");
 
-    $enable = $DB->get_field_sql($sql3, $params=null, $strictness=MUST_EXIST);
-    
+    $enable = $DB->get_field_sql($sql3, $params = null, $strictness = MUST_EXIST);
+
     if ($enable == '1') {
 
         $timenow = time();
@@ -125,8 +111,8 @@ function local_eledia_makeanonymous_cron() {
                       FROM {config_plugins}
                       WHERE plugin='local_eledia_makeanonymous' AND name='delaytime'");
 
-        $delay = $DB->get_field_sql($sqldelay, $params=null, $strictness=MUST_EXIST);
-        $delay = $delay*60; // Minutes to seconds.
+        $delay = $DB->get_field_sql($sqldelay, $params = null, $strictness = MUST_EXIST);
+        $delay = $delay * 60; // Minutes to seconds.
         $delaytime = $timenow - $delay;
 
         $sqlselect = 'SELECT userid
@@ -138,7 +124,7 @@ function local_eledia_makeanonymous_cron() {
         foreach ($userids as $userid) {
 
             $id = $userid->userid;
-            $user = $DB->get_record('user', array('id'=>$id));
+            $user = $DB->get_record('user', array('id' => $id));
             make_anonymous($user);
         }
 

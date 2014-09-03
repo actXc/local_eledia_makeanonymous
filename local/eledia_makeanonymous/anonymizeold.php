@@ -16,14 +16,14 @@ defined('MOODLE_INTERNAL') || die;
 
 global $CFG, $DB, $PAGE;
 
-$PAGE->set_url('/blocks/eledia_makeanonymous/anonymizeold.php');
+$PAGE->set_url('/local/eledia_makeanonymous/anonymizeold.php');
 
 require_login();
 $context = context_system::instance();
 $PAGE->set_context($context);
 
 if (has_capability('moodle/site:config', $context)) {
-    
+
     $deletedusers = $DB->get_records_sql("SELECT id, username
                                           FROM {user}
                                           WHERE deleted = 1");
@@ -34,6 +34,6 @@ if (has_capability('moodle/site:config', $context)) {
             make_anonymous($user);
         }
     }
-    
+
     redirect($CFG->wwwroot.'/admin/settings.php?section=local_eledia_makeanonymous');
 }

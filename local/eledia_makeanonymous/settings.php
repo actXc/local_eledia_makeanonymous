@@ -58,17 +58,17 @@ if ($hassiteconfig) {
     } else {
         $content .= get_string('makeanonymous_anonymize_users_available', 'local_eledia_makeanonymous', count($toanonymize));
         $content .= '<br><br>';
-        
+
         $button = new StdClass;
         $button->type = 'button';
         $button->onclick = 'window.location.href = \''.$CFG->wwwroot.'/local/eledia_makeanonymous/anonymizeold.php\';';
         $button->value = get_string('makeanonymous_button', 'local_eledia_makeanonymous');
         $content .= html_writer::empty_tag('input', (array)$button);
-           
+
     }
 
     $settings->add(new admin_setting_heading('local_eledia_makeanonymous_anonymize_old_head',
                    get_string('makeanonymous_anonymize_old_head', 'local_eledia_makeanonymous'),
                    $content));
-    
+
 }

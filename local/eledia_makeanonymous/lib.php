@@ -82,6 +82,11 @@ function make_anonymous($user) {
     $updateuser->currentlogin = '0';
     $updateuser->timecreated = '0';
 
+    $updateuser->lastnamephonetic = '';
+    $updateuser->firstnamephonetic = '';
+    $updateuser->middlename = '';
+    $updateuser->alternatename = '';
+
     $DB->update_record('user', $updateuser);
 }
 

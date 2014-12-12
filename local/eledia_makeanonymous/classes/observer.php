@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Event.
+ * Event observer.
  *
  * @package local_eledia_makeanonymous
  * @author Matthias Schwabe <support@eledia.de>
@@ -25,11 +25,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$observers = array (
-    array (
-        'eventname' => '\core\event\user_deleted',
-        'callback'  => 'local_eledia_makeanonymous_observer::anonymize',
-        'internal'  => true,
-        'priority'  => 1000,
-    )
-);
+require_once($CFG->dirroot.'/local/eledia_makeanonymous/lib.php');
+
+/**
+ * Event observer.
+ */
+class local_eledia_makeanonymous_observer {
+
+    public static function anonymize(\core\event\user_deleted $event) {
+
+        start_anonymous($event->relateduserid);
+    }
+}

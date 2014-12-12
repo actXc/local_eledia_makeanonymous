@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Event.
+ * eledia_makeanonymous cron task.
  *
  * @package local_eledia_makeanonymous
  * @author Matthias Schwabe <support@eledia.de>
@@ -23,13 +23,29 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace local_eledia_makeanonymous\task;
+
 defined('MOODLE_INTERNAL') || die();
 
-$observers = array (
-    array (
-        'eventname' => '\core\event\user_deleted',
-        'callback'  => 'local_eledia_makeanonymous_observer::anonymize',
-        'internal'  => true,
-        'priority'  => 1000,
-    )
-);
+require_once($CFG->dirroot.'/local/eledia_makeanonymous/lib.php');
+
+class eledia_makeanonymous_task extends \core\task\scheduled_task {
+
+    /**
+     * Get a descriptive name for this task (shown to admins).
+     *
+     * @return string
+     */
+    public function get_name() {
+        return get_string('eledia_makeanonymous_task', 'local_eledia_makeanonymous');
+    }
+
+    /**
+     * Do the job.
+     * Throw exceptions on errors (the job will be retried).
+     */
+    public function execute() {
+
+        anonymize_task();
+    }
+}

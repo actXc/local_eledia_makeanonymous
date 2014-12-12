@@ -1,7 +1,21 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
- * This local plugin anonymizes data of deleted users, 
- * optinally with a delay time.
+ * Settings.
  *
  * @package local_eledia_makeanonymous
  * @author Matthias Schwabe <support@eledia.de>
@@ -39,9 +53,7 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configtext('local_eledia_makeanonymous/delaytime',
                    get_string('makeanonymous_delay_time', 'local_eledia_makeanonymous'), '', '1440', PARAM_INT, 6));
 
-    $deletedusers = $DB->get_records_sql("SELECT id, username
-                                          FROM {user}
-                                          WHERE deleted = 1");
+    $deletedusers = $DB->get_records('user', array('deleted' => 1));
 
     $toanonymize = array();
     foreach ($deletedusers as $user) {
@@ -51,7 +63,7 @@ if ($hassiteconfig) {
     }
 
     $content = get_string('makeanonymous_anonymize_old_desc', 'local_eledia_makeanonymous');
-    $content .= '<br><br>'; 
+    $content .= '<br><br>';
 
     if (count($toanonymize) < 1) {
         $content .= get_string('makeanonymous_anonymize_no_users', 'local_eledia_makeanonymous');
@@ -70,5 +82,4 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_heading('local_eledia_makeanonymous_anonymize_old_head',
                    get_string('makeanonymous_anonymize_old_head', 'local_eledia_makeanonymous'),
                    $content));
-
 }

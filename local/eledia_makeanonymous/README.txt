@@ -12,11 +12,12 @@ Anonymized usernames will be a hash value of old username and deleting time with
 Anonymized e-mail addresses will be the new username with surfix '@delet.ed'.
 
 You can also delay the anonymization by setting up a delay time.
-Since version 0.4 you can also anonymize users which you have deleted in the past.
+Since version 0.4 you can also anonymize users which you have deleted in the past (before using the plugin).
+
 
 Requirements
 ------------
-Moodle 2.4, 2.5, 2.6 or 2.7
+Moodle 2.4, 2.5, 2.6, 2.7 or 2.8
 
 
 Installation
@@ -41,8 +42,11 @@ Site administration --> Plugins --> Local plugins --> makeanonymous.
 
 Version control
 ---------------
+- 0.5 (2014121200)
+-- the plugin now uses the new task and event apis
+
 - 0.4 (2014082802)
--- you can now anonymize users which you have deleted in the past
+-- you can now anonymize users which you have deleted in the past (before using the plugin)
 
 - 0.3 (2013082800)
 -- set timestamps to 0

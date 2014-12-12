@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Event.
+ * eledia_makeanonymous cron task.
  *
  * @package local_eledia_makeanonymous
  * @author Matthias Schwabe <support@eledia.de>
@@ -25,11 +25,14 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$observers = array (
-    array (
-        'eventname' => '\core\event\user_deleted',
-        'callback'  => 'local_eledia_makeanonymous_observer::anonymize',
-        'internal'  => true,
-        'priority'  => 1000,
-    )
+$tasks = array(
+    array(
+        'classname' => '\local_eledia_makeanonymous\task\eledia_makeanonymous_task',
+        'blocking' => 0,
+        'minute' => '30',
+        'hour' => '*',
+        'day' => '*',
+        'dayofweek' => '*',
+        'month' => '*'
+    ),
 );
